@@ -1,1 +1,6 @@
 # MLOQ
+
+The idea is to use a machine learning model that can predict the visibility of 3D modules in a scene, based on their vertex buffer samples, bounding box, and world/view/project matrices. I am going to experience with convolutional neural network (CNN) model first. ML model takes these features as input and outputs the number of pixels that can be shown in the scene for each 3D module.
+Since there are many 3D modules in a scene, we need to consider the occlusion effects between different 3D modules. The ML input will be a matrix, each column represents a set of features of one module, so the entire matrix represents the features of all 3 modules. The output is an array that records predicted number of pixels of every 3D module, suppose there are 30 modules in a scene, the size of input matrix is [1000, 30], the output size is [30].
+
+The model is trained with a large dataset of vertex buffer samples, bounding box, world/view/project matrices, and ground truth labels for each 3D module. The ground truth labels are obtained from the hardware occlusion queries, which measure the actual number of pixels that are visible in the scene. The loss function is the mean squared error between the predicted and the actual number of pixels.
